@@ -41,7 +41,4 @@ process.on('SIGINT', () => {
     process.exit(0);
 });
 
-// Close database connection when done
-db.close(() => {
-    console.log('Database setup complete.');
-});
+module.exports = db;

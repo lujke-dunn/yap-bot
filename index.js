@@ -39,7 +39,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 // Daily question scheduler
-cron.schedule('30 23 * * *', async () => {
+cron.schedule('25 1 * * *', async () => {
     try {
         const questionToAsk = await getRandomQuestion();
         
@@ -51,7 +51,9 @@ cron.schedule('30 23 * * *', async () => {
             );
             
             if (targetChannel) {
-                await targetChannel.send(`@Yapper Today's question: ${questionToAsk}`);
+                const yapperRole = guild.roles.cache.find(role => role.name === 'Yapper');
+                const roleTag = yapperRole ? `<@&${yapperRole.id}>` : 'Yapper';
+                await targetChannel.send(`${roleTag} Today's question: ${questionToAsk}`);
                 console.log(`question sent to ${guild.name} in channel ${targetChannel.name}`);
             }
         }
