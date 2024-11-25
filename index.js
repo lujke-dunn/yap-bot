@@ -6,8 +6,9 @@ const { client, connectWithRetry } = require('./discord/client');
 const { getRandomQuestion } = require('./database/getRandomQuestion');
 const help = require('./discord/commands/help');
 const beYapper = require('./discord/commands/addYapperRole');
+const sendAnon = require('./discord/commands/sendAnon');
 
-const commands = [help.data, beYapper.data];
+const commands = [help.data, beYapper.data, sendAnon.data];
 const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 
 // Register commands
@@ -30,7 +31,8 @@ client.on('interactionCreate', async interaction => {
     
     const command = {
         'help': help,
-        'be-yapper': beYapper
+        'be-yapper': beYapper,
+        'anon': sendAnon
     }[interaction.commandName];
 
     if (command) {
