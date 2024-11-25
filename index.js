@@ -41,7 +41,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 // Daily question scheduler
-cron.schedule('25 1 * * *', async () => {
+cron.schedule('30 10 * * *', async () => {
     try {
         const questionToAsk = await getRandomQuestion();
         
