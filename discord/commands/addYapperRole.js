@@ -17,11 +17,19 @@ module.exports = {
                 });
             }
 
-            await interaction.member.roles.add(yapperRole);
-            await interaction.reply({
-                content: 'You are now a yapper. You will be notified when it is yap time.',
-                ephemeral: true
-            });
+            if (interaction.member.roles.cache.has(yapperRole.id)) {
+                await interaction.member.roles.remove(yapperRole);
+                await interaction.reply({
+                    content: 'You are no longer a yapper.',
+                    ephemeral: true
+                })
+            } else {
+                await interaction.member.roles.add(yapperRole);
+                await interaction.reply({
+                    content: 'You are now a yapper. You will be notified when it is yap time.',
+                    ephemeral: true
+                });
+            }
         } catch (error) {
             console.error('Error managing Yapper role:', error);
             await interaction.reply({
